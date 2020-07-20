@@ -1,0 +1,50 @@
+Creating bootable medium
+You will need a usb drive that is at least 4gb. We will be using rufus, Rufus is a utility that helps format and create bootable USB flash drives. https://github.com/pbatard/rufus/releases/download/v3.11/rufus-3.11.exe We will be using xubuntu, a lightweight distro based on Ubuntu. It has a user friendly and intuitive gui. http://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/18.04/release/xubuntu-18.04-desktop-amd64.iso I believe this works on 20.04. I will test this soon. Once the iso and rufus has been downloaded and you have a flash drive you can continue the next steps. 
+On device select the usb you wish to use for booting off of. Be aware this will destroy all data on it. For boot selection navigate to the folder you saved the xubuntu to and select it. Leave the rest to defaults. Press start and wait until the process finishes.
+
+Booting onto Usb Drive
+Restart the pc with the usb inserted. Enter the bios and change the boot order so the usb drive is the first boot device. There is a key that will save and restart the pc. It is usually on the bottom of the bios. Refer to your motherboard manual if you have trouble with this. 
+A more in depth guide for the uninitiated:https://help.ubuntu.com/community/Installation?action=show&redirect=InstallingXubuntu
+Installation
+I use an extra hdd for xubuntu but you can partition your existing hard drive. I recommend backing up important info. The installation is pretty straightforward and is explained by the installer itself. Refer to the guide linked above if you need assistance.
+
+Drivers
+This is assuming you are using an nvidia gpu and you are on the xubuntu desktop. The start menu is on the top left of the screen. Open terminal emulator and enter the following commands.
+sudo ubuntu-drivers devices
+sudo ubuntu-drivers autoinstall
+You will be prompted for your password when running sudo commands. 
+Once the driver is successfully installed enter this command to reboot:
+sudo reboot
+
+Anaconda 
+You may need sudo for this:
+apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+
+https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh download this 
+
+Right click to open a terminal in the directory that you downloaded the installer in. run:
+sudo bash Anaconda3-2020.02-Linux-x86_64.sh 
+or 
+sudo ./Anaconda3-2020.02-Linux-x86_64.sh
+
+This should install anaconda. Guide https://docs.anaconda.com/anaconda/install/linux/
+
+DFL_LINUX and dependencies 
+sudo apt-get install git
+conda create -n deepfacelab -c main python=3.6.8 cudnn=7.6.5 cudatoolkit=10.0.130
+conda activate deepfacelab
+git clone https://github.com/lbfs/DeepFaceLab_Linux.git
+cd DeepFaceLab_Linux
+git clone https://github.com/iperov/DeepFaceLab.git
+python -m pip install -r ./DeepFaceLab/requirements-cuda.txt
+
+If you have issue replace python -m pip install -r ./DeepFaceLab/requirements-cuda.txt 
+
+With
+ python3 -m pip install -r ./DeepFaceLab/requirements-cuda.txt
+
+Using dfl_linux
+Cd DeepFaceLab_Linux/scripts
+Sudo bash 6_train_SAEHD.sh
+
+
